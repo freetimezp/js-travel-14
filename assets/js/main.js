@@ -2,6 +2,7 @@ import Destination from "./destination.js";
 import DestinationText from "./destiText.js";
 import DestinationBg from "./destiBg.js";
 import Blog from "./blog.js";
+import Testimonial from "./testimonial.js";
 
 const navBar = document.querySelector(".header");
 const menuBtn = document.querySelector(".header__menu-icon");
@@ -11,10 +12,12 @@ const destiSliderWrapper = document.querySelector(".destinations__slider-wrapper
 const destinationsText = document.querySelector(".destinations__text");
 const destinationsBg = document.querySelector(".destinations__bg");
 const blogContent = document.querySelector(".blogs__content");
+const testiSliderWrapper = document.querySelector(".testimonials__wrapper");
 
 
 const DESTINATIOS_API = "../assets/api/destinations.json";
 const BLOG_API = "../assets/api/blogs.json";
+const TESTIMONIALS_API = "../assets/api/testimonials.json";
 
 
 const sr = ScrollReveal({ origin: "top", distance: "100px", duration: 2000, delay: 200 });
@@ -109,12 +112,36 @@ async function renderBlogs() {
     });
 }
 
+//render testimonials
+async function renderTestmonials() {
+    const respone = await fetch(TESTIMONIALS_API);
+    const data = await respone.json();
+
+    data.map((testi) => {
+        testiSliderWrapper.innerHTML += Testimonial(testi);
+    });
+
+    const testiSwiper = new Swiper(".testimonials__content", {
+        slidesPerView: 1,
+        effect: "fade",
+        loop: true,
+        grabCursor: true,
+        autoplay: {
+            delay: 7000,
+            disableOnInteraction: false,
+        },
+    });
+    sr.reveal(".testimonials__content");
+}
+
+
 
 //onload 
 window.addEventListener("load", () => {
     changeHeaderBg();
     renderDestinations();
     renderBlogs();
+    renderTestmonials();
     document.querySelector(".home__thumbnails").classList.add("reveal");
 });
 
