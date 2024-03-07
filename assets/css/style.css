@@ -607,11 +607,84 @@ body {
     }
 }
 
-
 /** testimonials end **/
 
 
 
+/** join start **/
+.join {
+    position: relative;
+    padding-block: var(--header-height);
+    background-image: url("../images/Home-04.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.join::before {
+    content: '';
+    position: absolute;
+    background-color: var(--shadow-black-20);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.join__container {
+    padding-inline: calc(var(--padding-1) / 2);
+}
+
+.join__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
+}
+
+.join__title h1 {
+    font-size: clamp(var(--font-size-1-5), 4vw, var(--font-size-3));
+    font-weight: var(--font-semi-bold);
+    color: var(--text-light);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    max-width: 450px;
+}
+
+.form__input {
+    border: 2px solid var(--field-color);
+    outline: none;
+    border-radius: var(--border-5);
+    background: transparent;
+    height: var(--control-height);
+    padding-inline: 10px;
+    font-family: var(--font-family-montserrat);
+    font-size: var(--font-size-1);
+    color: var(--white-100);
+    transition: all var(--default-duration) ease;
+}
+
+.form__input::placeholder {
+    color: var(--white-100);
+}
+
+.form__input:focus {
+    border-color: var(--field-focus-color);
+}
+
+.form__btn {
+    width: 100%;
+}
+
+
+
+
+
+
+/** join end **/
 
 
 
