@@ -4,30 +4,30 @@ import DestinationBg from "./destiBg.js";
 import Blog from "./blog.js";
 import Testimonial from "./testimonial.js";
 
-const navBar = document.querySelector(".header");
-const menuBtn = document.querySelector(".header__menu-icon");
-const closeMenuBtn = document.querySelector(".close-icon");
-const sections = document.querySelectorAll("section[id]");
-const destiSliderWrapper = document.querySelector(".destinations__slider-wrapper");
-const destinationsText = document.querySelector(".destinations__text");
-const destinationsBg = document.querySelector(".destinations__bg");
-const blogContent = document.querySelector(".blogs__content");
-const testiSliderWrapper = document.querySelector(".testimonials__wrapper");
-
+const navBar = document.querySelector(".header"),
+    menuBtn = document.querySelector(".header__menu-icon"),
+    closeMenuBtn = document.querySelector(".close-icon"),
+    sections = document.querySelectorAll("section[id]"),
+    destiSliderWrapper = document.querySelector(".destinations__slider-wrapper"),
+    destinationsText = document.querySelector(".destinations__text"),
+    destinationsBg = document.querySelector(".destinations__bg"),
+    blogContent = document.querySelector(".blogs__content"),
+    testiSliderWrapper = document.querySelector(".testimonials__wrapper"),
+    scrollUpBtn = document.querySelector(".scroll-up");
 
 const DESTINATIOS_API = "../assets/api/destinations.json";
 const BLOG_API = "../assets/api/blogs.json";
 const TESTIMONIALS_API = "../assets/api/testimonials.json";
 
-
+// initialize Scroll Reveal
 const sr = ScrollReveal({ origin: "top", distance: "100px", duration: 2000, delay: 200 });
 
-//toggle menu
+/* ============== Header ============== */
+
 menuBtn.addEventListener("click", () => document.body.classList.add("menu-toggled"));
 
 closeMenuBtn.addEventListener("click", () => document.body.classList.remove("menu-toggled"));
 
-//change bg header
 function changeHeaderBg() {
     const scrollY = window.scrollY;
     if (scrollY > 100) {
@@ -39,7 +39,8 @@ function changeHeaderBg() {
     }
 }
 
-//thumbnail slider
+/* ============== Home Section ============== */
+
 const thumbnailsSwiper = new Swiper(".home__thumbnails", {
     slidesPerView: 3.5,
     spaceBetween: 20,
@@ -58,24 +59,26 @@ const thumbnailsSwiper = new Swiper(".home__thumbnails", {
         1100: { slidesPerView: 2.5 },
         1200: { slidesPerView: 2.8 },
         1300: { slidesPerView: 3.1 },
-        1400: { slidesPerView: 3.5 },
-    }
+        1380: { slidesPerView: 3.5 },
+    },
 });
 
 thumbnailsSwiper.on("slideChange", () => {
-    let realIndex = thumbnailsSwiper.realIndex;
-    let prevRealIndex = thumbnailsSwiper.realIndex;
-
-    document.querySelectorAll(".home__slide")[prevRealIndex].classList.remove('active');
-    document.querySelectorAll(".home__slide")[realIndex].classList.add('active');
+    let realIndex = thumbnailsSwiper.realIndex,
+        prevRealIndex = thumbnailsSwiper.previousRealIndex;
+    document.querySelectorAll(".home__slide")[prevRealIndex].classList.remove("active");
+    document.querySelectorAll(".home__slide")[realIndex].classList.add("active");
 });
 
+/* ============== About Section ============== */
+/* ScrollReveal JS */
+sr.reveal(".about__text", { origin: "left" });
+sr.reveal(".about__image", { origin: "right" });
+/* ============== Destinations Section ============== */
 
-//render destinations 
 async function renderDestinations() {
     const respone = await fetch(DESTINATIOS_API);
     const data = await respone.json();
-
     data.map((desti) => {
         destiSliderWrapper.innerHTML += Destination(desti);
         destinationsText.innerHTML += DestinationText(desti);
@@ -89,9 +92,8 @@ async function renderDestinations() {
     document.querySelectorAll(".destination-text")[0].classList.add("active");
     document.querySelectorAll(".destination-bg")[0].classList.add("active");
     destiSwiper.on("slideChange", () => {
-        let realIndex = destiSwiper.realIndex;
-        let prevRealIndex = destiSwiper.previousRealIndex;
-
+        let realIndex = destiSwiper.realIndex,
+            prevRealIndex = destiSwiper.previousRealIndex;
         document.querySelectorAll(".destination-text")[prevRealIndex].classList.remove("active");
         document.querySelectorAll(".destination-bg")[prevRealIndex].classList.remove("active");
         document.querySelectorAll(".destination-text")[realIndex].classList.add("active");
@@ -101,26 +103,23 @@ async function renderDestinations() {
     sr.reveal(".destinations__text");
 }
 
-
-//render blogs
+/* ============== Blog Section ============== */
 async function renderBlogs() {
     const respone = await fetch(BLOG_API);
     const data = await respone.json();
-
     data.map((blog) => {
         blogContent.innerHTML += Blog(blog);
     });
+    sr.reveal(".blog", { interval: 100 });
 }
 
-//render testimonials
+/* ============== Testimonials Section ============== */
 async function renderTestmonials() {
     const respone = await fetch(TESTIMONIALS_API);
     const data = await respone.json();
-
     data.map((testi) => {
         testiSliderWrapper.innerHTML += Testimonial(testi);
     });
-
     const testiSwiper = new Swiper(".testimonials__content", {
         slidesPerView: 1,
         effect: "fade",
@@ -134,19 +133,48 @@ async function renderTestmonials() {
     sr.reveal(".testimonials__content");
 }
 
+/* ============== Footer ============== */
+/* ScrollReveal JS */
+sr.reveal(".footer__col", { interval: 100 });
 
+/* ============== Active Scroll ============== */
 
-//onload 
-window.addEventListener("load", () => {
+function activeScroll() {
+    const scrollY = window.scrollY;
+    sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 16,
+            sectionHeight = section.offsetHeight,
+            link = document.querySelector(`.header__link a[href='#${section.id}'`);
+        if (scrollY >= sectionTop && scrollY <= sectionHeight + sectionTop) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+    });
+}
+
+/* ============== Scroll Up ============== */
+
+function showScrollUpBtn() {
+    if (window.scrollY > 300) {
+        scrollUpBtn.classList.add("show");
+    } else {
+        scrollUpBtn.classList.remove("show");
+    }
+}
+
+scrollUpBtn.addEventListener("click", () => window.scrollTo({ behavior: "smooth", top: 0, left: 0 }));
+
+window.addEventListener("scroll", () => {
     changeHeaderBg();
+    showScrollUpBtn();
+    activeScroll();
+});
+
+window.addEventListener("load", () => {
     renderDestinations();
     renderBlogs();
     renderTestmonials();
+    activeScroll();
     document.querySelector(".home__thumbnails").classList.add("reveal");
 });
-
-
-
-
-
-

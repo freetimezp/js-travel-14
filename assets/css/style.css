@@ -81,6 +81,7 @@ body {
     transition: width var(--default-duration);
 }
 
+.header__link a.active::before,
 .header__link a:hover::before {
     width: 100%;
 }
@@ -744,11 +745,32 @@ body {
 /** footer end **/
 
 
+.scroll-up {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    right: 15px;
+    bottom: 5px;
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+    transition: all var(--default-duration) ease;
+}
 
+.scroll-up i {
+    font-size: var(--font-size-1-5);
+    font-weight: var(--font-regular);
+}
 
-
-
-
+.scroll-up.show {
+    bottom: 15px;
+    opacity: 1;
+    z-index: 500;
+    pointer-events: all;
+}
 
 
 
