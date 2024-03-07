@@ -57,6 +57,7 @@ thumbnailsSwiper.on("slideChange", () => {
 //onload 
 window.addEventListener("load", () => {
     document.querySelector(".home__thumbnails").classList.add("reveal");
+    changeHeaderBg();
 });
 
 
