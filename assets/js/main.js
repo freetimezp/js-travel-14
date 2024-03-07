@@ -1,6 +1,17 @@
-const navBar = document.querySelector(".header")
+import Destination from "./destination.js";
+import DestinationText from "./destiText.js";
+import DestinationBg from "./destiBg.js";
+
+const navBar = document.querySelector(".header");
 const menuBtn = document.querySelector(".header__menu-icon");
 const closeMenuBtn = document.querySelector(".close-icon");
+const sections = document.querySelectorAll("section[id]");
+const destiSliderWrapper = document.querySelector(".destinations__slider-wrapper");
+const destinationsText = document.querySelector(".destinations__text");
+const destinationsBg = document.querySelector(".destinations__bg");
+
+
+const DESTINATIOS_API = "../assets/api/destinations.json";
 
 const sr = ScrollReveal({ origin: "top", distance: "100px", duration: 2000, delay: 200 });
 
@@ -20,7 +31,6 @@ function changeHeaderBg() {
         navBar.style.backdropFilter = "blur(0px)";
     }
 }
-
 
 //thumbnail slider
 const thumbnailsSwiper = new Swiper(".home__thumbnails", {
@@ -54,15 +64,43 @@ thumbnailsSwiper.on("slideChange", () => {
 });
 
 
+//render destinations 
+async function renderDestinations() {
+    const respone = await fetch(DESTINATIOS_API);
+    const data = await respone.json();
+
+    data.map((desti) => {
+        destiSliderWrapper.innerHTML += Destination(desti);
+        destinationsText.innerHTML += DestinationText(desti);
+        destinationsBg.innerHTML += DestinationBg(desti);
+    });
+    const destiSwiper = new Swiper(".destinations__slider", {
+        effect: "cards",
+        grabCursor: true,
+        centeredSlides: true,
+    });
+    document.querySelectorAll(".destination-text")[0].classList.add("active");
+    document.querySelectorAll(".destination-bg")[0].classList.add("active");
+    destiSwiper.on("slideChange", () => {
+        let realIndex = destiSwiper.realIndex;
+        let prevRealIndex = destiSwiper.previousRealIndex;
+
+        document.querySelectorAll(".destination-text")[prevRealIndex].classList.remove("active");
+        document.querySelectorAll(".destination-bg")[prevRealIndex].classList.remove("active");
+        document.querySelectorAll(".destination-text")[realIndex].classList.add("active");
+        document.querySelectorAll(".destination-bg")[realIndex].classList.add("active");
+    });
+    sr.reveal(".destinations__slider");
+    sr.reveal(".destinations__text");
+}
+
+
 //onload 
 window.addEventListener("load", () => {
-    document.querySelector(".home__thumbnails").classList.add("reveal");
     changeHeaderBg();
+    renderDestinations();
+    document.querySelector(".home__thumbnails").classList.add("reveal");
 });
-
-
-
-
 
 
 

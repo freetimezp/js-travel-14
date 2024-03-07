@@ -363,12 +363,120 @@ body {
     }
 }
 
-
 /** about end **/
 
 
 
 
+/** destinations start **/
+.destinations {
+    display: flex;
+    align-items: center;
+    min-height: var(--full-view-height);
+    position: relative;
+    padding-block: var(--header-height);
+    overflow: hidden;
+}
+
+.destinations__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.destinations__slider {
+    width: 300px;
+    height: 430px;
+    filter: drop-shadow(var(--shadow-primary));
+    margin: 0 !important;
+}
+
+.destination {
+    border-radius: var(--border-10);
+}
+
+.destination__image {
+    width: 100%;
+    height: 100%;
+}
+
+.destinations__text {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 50%;
+    min-height: 225px;
+    z-index: 10;
+}
+
+.destination-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    opacity: 0;
+}
+
+.destination-text .heading {
+    font-size: clamp(var(--font-size-2), 6vw, var(--font-size-3));
+    color: var(--text-light);
+}
+
+.destination-text .text {
+    line-height: 1.5em;
+    font-size: clamp(var(--font-size-1), 3vw, var(--font-size-1-5) / 1.2);
+    color: var(--text-light);
+}
+
+.destinations__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.destination-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity var(--default-duration) ease;
+}
+
+.destination-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--shadow-black-20);
+}
+
+:where(.destination-text, .destination-bg).active {
+    opacity: 1;
+}
+
+@media screen and (max-width: 992px) {
+    .destinations__slider {
+        scale: 0.8;
+    }
+}
+
+@media screen and (max-width: 684px) {
+    .destinations__content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .destinations__text {
+        text-align: center;
+    }
+}
+
+/** destinations end **/
 
 
 
