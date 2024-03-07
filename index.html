@@ -4,14 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/svg+xml" href="./assets/images/faviconLight.svg"
+        media="(prefers-color-scheme: light)" />
+    <link rel="shortcut icon" type="image/svg+xml" href="./assets/images/faviconDark.svg"
+        media="(prefers-color-scheme: dark)" />
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Project</title>
+    <title>Project | Travel</title>
 </head>
 
 <body>
-    start
+    <header class="header">
+        <nav class="header__container container">
+            <ul class="header__links">
+                <li class="header__link"><a href="#home">Home</a></li>
+                <li class="header__link"><a href="#about">About</a></li>
+                <li class="header__link"><a href="#destinations">Destinations</a></li>
+            </ul>
 
-    <script src="./assets/js/main.js"></script>
+            <div class="header__logo">
+                <a href="#">
+                    <img src="./assets/images/Travelya.svg" alt="logo">
+                </a>
+            </div>
+
+            <ul class="header__links">
+                <li class="header__link"><a href="#blog">Blog</a></li>
+                <li class="header__link"><a href="#testimonials">Testimonials</a></li>
+                <li class="header__link"><a href="#join">Join</a></li>
+            </ul>
+
+            <ul class="header__links-mobile">
+                <i class="ri-close-line close-icon"></i>
+                <li class="header__link header__link-mobile"><a href="#home">Home</a></li>
+                <li class="header__link header__link-mobile"><a href="#about">About</a></li>
+                <li class="header__link header__link-mobile"><a href="#destinations">Destinations</a></li>
+                <li class="header__link header__link-mobile"><a href="#blog">Blog</a></li>
+                <li class="header__link header__link-mobile"><a href="#testimonials">Testimonials</a></li>
+                <li class="header__link header__link-mobile"><a href="#join">Join</a></li>
+            </ul>
+
+            <div class="header__menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <script src="./assets/js/swiper.js"></script>
+    <script src="./assets/js/scrollReveal.js"></script>
+    <script src="./assets/js/main.js" defer type="module"></script>
 </body>
 
 </html>
