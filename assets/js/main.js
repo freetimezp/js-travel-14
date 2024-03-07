@@ -1,6 +1,7 @@
 import Destination from "./destination.js";
 import DestinationText from "./destiText.js";
 import DestinationBg from "./destiBg.js";
+import Blog from "./blog.js";
 
 const navBar = document.querySelector(".header");
 const menuBtn = document.querySelector(".header__menu-icon");
@@ -9,9 +10,12 @@ const sections = document.querySelectorAll("section[id]");
 const destiSliderWrapper = document.querySelector(".destinations__slider-wrapper");
 const destinationsText = document.querySelector(".destinations__text");
 const destinationsBg = document.querySelector(".destinations__bg");
+const blogContent = document.querySelector(".blogs__content");
 
 
 const DESTINATIOS_API = "../assets/api/destinations.json";
+const BLOG_API = "../assets/api/blogs.json";
+
 
 const sr = ScrollReveal({ origin: "top", distance: "100px", duration: 2000, delay: 200 });
 
@@ -95,10 +99,22 @@ async function renderDestinations() {
 }
 
 
+//render blogs
+async function renderBlogs() {
+    const respone = await fetch(BLOG_API);
+    const data = await respone.json();
+
+    data.map((blog) => {
+        blogContent.innerHTML += Blog(blog);
+    });
+}
+
+
 //onload 
 window.addEventListener("load", () => {
     changeHeaderBg();
     renderDestinations();
+    renderBlogs();
     document.querySelector(".home__thumbnails").classList.add("reveal");
 });
 

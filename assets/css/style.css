@@ -480,6 +480,70 @@ body {
 
 
 
+/** blogs start **/
+.blogs {
+    display: flex;
+    align-items: center;
+    min-height: var(--full-view-height);
+    position: relative;
+    padding-top: var(--header-height);
+}
+
+.blogs__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: calc(var(--padding-1) / 2);
+}
+
+.blog {
+    position: relative;
+    min-width: 240px;
+    width: 100%;
+    max-width: 320px;
+    height: 450px;
+    border-radius: var(--border-10);
+    overflow: hidden;
+}
+
+.blog__image {
+    width: 100%;
+    height: 100%;
+}
+
+.blog__title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: var(--padding-1);
+    background-color: var(--blue-60-opcty-70);
+    font-size: calc(var(--font-size-1-5) / 1.3);
+    line-height: 1.5em;
+    color: var(--text-light);
+}
+
+
+
+
+/** blogs end **/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
